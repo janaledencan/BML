@@ -1,7 +1,3 @@
-# Zadatak 2.4.1 Pomocu funkcija numpy.array i matplotlib.pyplot pokušajte nacrtati sliku
-# 2.3 u okviru skripte zadatak_1.py. Igrajte se sa slikom, promijenite boju linija, debljinu linije i
-# sl.
-
 import numpy as np
 import matplotlib . pyplot as plt
 

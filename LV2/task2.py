@@ -1,21 +1,7 @@
-# Zadatak 2.4.2 Datoteka data.csv sadrži mjerenja visine i mase provedena na muškarcima i
-# ženama. Skripta zadatak_2.py ucitava dane podatke u obliku numpy polja data pri cemu je u
-# prvom stupcu polja oznaka spola (1 muško, 0 žensko), drugi stupac polja je masa u kg, a treci
-# stupac polja je visina u cm.
-    # a) Na temelju veliˇcine numpy polja data, na koliko osoba su izvršena mjerenja?
-    # b) Prikažite odnos visine i mase osobe pomocu naredbe matplotlib.pyplot.scatter.
-    # c) Ponovite prethodni zadatak, ali prikažite mjerenja za svaku pedesetu osobu na slici.
-    # d) Izraˇcunajte i ispišite u terminal minimalnu, maksimalnu i srednju vrijednost visine u ovom
-    # podatkovnom skupu.
-    # e) Ponovite zadatak pod d), ali samo za muškarce, odnosno žene. Npr. kako biste izdvojili
-    # muškarce, stvorite polje koje zadrži bool vrijednosti i njega koristite kao indeks retka.
-    # ind = (data[:,0] == 1)
-
 import numpy as np
 import matplotlib.pyplot as plt
 from statistics import mean
 
-# Importing csv module
 import csv
 
 with open("data.csv", 'r') as x:

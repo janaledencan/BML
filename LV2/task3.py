@@ -1,10 +1,3 @@
-# Zadatak 2.4.3 Skripta zadatak_3.py ucitava sliku ’road.jpg’. Manipulacijom odgovarajuce
-# numpy matrice pokušajte:
-# a) posvijetliti sliku, (The alpha blending value, between 0 (transparent) and 1 (opaque).)
-# b) prikazati samo drugu cetvrtinu slike po širini,
-# c) zarotirati sliku za 90 stupnjeva u smjeru kazaljke na satu,(rotated_img)
-# d) zrcaliti sliku.
-
 import numpy as np
 import matplotlib . pyplot as plt
 
