@@ -2,23 +2,23 @@ import math
 import random
 
 
-#ex 1.1
-x = 23
-print (x)
-x = x + 7
-print (x)
+# #ex 1.1
+# x = 23
+# print (x)
+# x = x + 7
+# print (x)
 
-#ex 1.2
-x = 23
-y = x > 10
-print (y)
+# #ex 1.2
+# x = 23
+# y = x > 10
+# print (y)
 
-#ex 1.3
-x = 23
-if x < 10:
-    print ("x je manji od 10")
-else :
-    print ("x je veci ili jednak od 10")
+# #ex 1.3
+# x = 23
+# if x < 10:
+#     print ("x je manji od 10")
+# else :
+#     print ("x je veci ili jednak od 10")
 
 #ex 1.4
 # i = 5
@@ -73,57 +73,57 @@ else :
 
 #jos jedan
 
-line = 'Dobrodosli u nas grad'
+# line = 'Dobrodosli u nas grad'
 
-if( line.startswith('Dobrodosli')):
-    print('Prva rijec je Dobrodosli')
-elif ( line . startswith ( 'dobrodosli')):
-    print ('Prva rijec je dobrodosli')
-
-
-print(line.lower())
-
-data = 'From:pero@yahoo.com'
-atpos = data.find('@')
-print(atpos)
+# if( line.startswith('Dobrodosli')):
+#     print('Prva rijec je Dobrodosli')
+# elif ( line . startswith ( 'dobrodosli')):
+#     print ('Prva rijec je dobrodosli')
 
 
+# print(line.lower())
 
-#ex 1.7
-letters = ('a', 'b', 'c', 'd', 'e')
-numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11)
-mixed = (1, 'Hello', 3.14)
-print ( letters [0])
-print ( letters [1:4])
-for letter in letters :
-    print ( letter )
+# data = 'From:pero@yahoo.com'
+# atpos = data.find('@')
+# print(atpos)
 
 
-#ex 1.8
-hr_num = {'jedan':1, 'dva':2, 'tri':3}
-print ( hr_num )
-print ( hr_num ['dva'])
-hr_num ['cetiri'] = 4
-print ( hr_num )
+
+# #ex 1.7
+# letters = ('a', 'b', 'c', 'd', 'e')
+# numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11)
+# mixed = (1, 'Hello', 3.14)
+# print ( letters [0])
+# print ( letters [1:4])
+# for letter in letters :
+#     print ( letter )
 
 
-#ex 1.9
-for i in range (10):
-    x = random.random ()
-    y = math . sin (x)
-    print ('Broj :', x, 'Sin ( broj ):', y)
+# #ex 1.8
+# hr_num = {'jedan':1, 'dva':2, 'tri':3}
+# print ( hr_num )
+# print ( hr_num ['dva'])
+# hr_num ['cetiri'] = 4
+# print ( hr_num )
 
 
-#ex 1.10
-def print_hello () :
-    print (" Hello world ")
-print_hello ()
+# #ex 1.9
+# for i in range (10):
+#     x = random.random ()
+#     y = math . sin (x)
+#     print ('Broj :', x, 'Sin ( broj ):', y)
 
 
-#ex 1.11
-fhand = open('example.txt')
-for line in fhand :
-    line = line.rstrip()
-    print (line)
-    words = line.split()
-fhand.close()
+# #ex 1.10
+# def print_hello () :
+#     print (" Hello world ")
+# print_hello ()
+
+
+# #ex 1.11
+# fhand = open('example.txt')
+# for line in fhand :
+#     line = line.rstrip()
+#     print (line)
+#     words = line.split()
+# fhand.close()

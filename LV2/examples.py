@@ -67,7 +67,7 @@
 # import matplotlib . pyplot as plt
 # x = np. linspace (0, 6, num =30)
 # y= np. sin (x)
-# plt . plot (x, y, 'b', linewidth =1, marker =".", markersize =5)
+# plt . plot (x, y, 'm', linewidth =1, marker =".", markersize =5)
 # plt . axis ([0,6,-2,2])
 # plt . xlabel ('x')
 # plt . ylabel ('vrijednosti funkcije')
@@ -76,12 +76,20 @@
 
 #ex 2.5
 
+# import numpy as np
+# import matplotlib . pyplot as plt
+# img = plt . imread ("road.jpg")
+# img = img [:,:,0]. copy ()
+# print ( img . shape )
+# print ( img . dtype )
+# plt . figure ()
+# plt . imshow (img , cmap ="gray")
+# plt . show ()
+
 import numpy as np
-import matplotlib . pyplot as plt
-img = plt . imread ("road.jpg")
-img = img [:,:,0]. copy ()
-print ( img . shape )
-print ( img . dtype )
-plt . figure ()
-plt . imshow (img , cmap ="gray")
-plt . show ()
+a=np.array([1,1,2,5,4])
+b=a
+a[2:]=6
+print(a)
+print(b)
+print(b[4])
