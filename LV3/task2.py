@@ -1,22 +1,15 @@
-# Zadatak 3.4.2 Napišite programski kod koji ce prikazati sljedece vizualizacije:
-# a) Pomocu histograma prikažite emisiju C02 plinova. Komentirajte dobiveni prikaz. (MISLIM DA VALJA)
-
-# import pandas as pd
-# import matplotlib.pyplot as plt
-
-# data = pd. read_csv('data_C02_emission.csv')
-# data ['CO2 Emissions (g/km)'].plot( kind ='hist', bins = 20)
-# plt.show()
-
-
-# b) Pomocu dijagrama raspršenja prikažite odnos izmedu gradske potrošnje goriva i emisije
-# C02 plinova. Komentirajte dobiveni prikaz. Kako biste bolje razumjeli odnose izmedu
-# velicina, obojite tockice na dijagramu raspršenja s obzirom na tip goriva.
-  
 import pandas as pd
 import matplotlib.pyplot as plt
 
 data = pd.read_csv( 'data_C02_emission.csv')
+
+# a)
+
+data ['CO2 Emissions (g/km)'].plot( kind ='hist', bins = 20)
+plt.show()
+
+
+# b) 
 
 print(data['Fuel Type'].value_counts())
 
@@ -39,59 +32,42 @@ plt.show ()
 
 
 
+# c) 
 
-# c) Pomocu kutijastog dijagrama prikažite razdiobu izvangradske potrošnje s obzirom na tip
-# goriva. Primjecujete li grubu mjernu pogrešku u podacima?  (MISLIM DA VALJA)
-
-# import pandas as pd
-# import matplotlib.pyplot as plt
-
-# data = pd. read_csv( 'data_C02_emission.csv')
-
-# grouped = data.groupby ( 'Fuel Type')
-# grouped.boxplot ( column =['Fuel Consumption Hwy (L/100km)'])
-# data.boxplot ( column =['CO2 Emissions (g/km)'], by='Fuel Type')
-# plt.show()
-
-# d) Pomocu stupcastog dijagrama prikažite broj vozila po tipu goriva. Koristite metodu
-# groupby. (VALJA)
-
-# import pandas as pd
-# import matplotlib.pyplot as plt
-
-# data = pd. read_csv( 'data_C02_emission.csv')
-
-# grouped = data.groupby ( 'Fuel Type')
-
-# result=grouped['Fuel Type']
-# fuel_group={}
-
-# for group,r in result:
-#     print(f"{group}:{len(r)}")
-#     fuel_group[f"{group}"] = len(r)
-
-# plt.bar(list(fuel_group.keys()),list(fuel_group.values()),color="m", width = 0.4)
-# plt.show()
-
-# e) Pomocu stupcastog grafa prikažite na istoj slici prosjecnu C02 emisiju vozila s obzirom na
-# broj cilindara. (VALJA)
-
-# import pandas as pd
-# import matplotlib.pyplot as plt
-
-# data = pd. read_csv( 'data_C02_emission.csv')
-
-# # grouped = data.groupby('Cylinders')
-# # result_cylinders=grouped['CO2 Emissions (g/km)']
-# total={}
-
-# # for group,g in result_cylinders:
-# #     print(group, g)
-# #     total[f"{group}"]=g
+grouped = data.groupby ( 'Fuel Type')
+grouped.boxplot ( column =['Fuel Consumption Hwy (L/100km)'])
+data.boxplot ( column =['CO2 Emissions (g/km)'], by='Fuel Type')
+plt.show()
 
 
-# grouped = data.groupby('Cylinders')['CO2 Emissions (g/km)'].sum()
-# total=grouped
-# print(grouped)
-# plt.bar(grouped.keys(),grouped,width=0.4)
-# plt.show()
+# d) 
+
+grouped = data.groupby ( 'Fuel Type')
+
+result=grouped['Fuel Type']
+fuel_group={}
+
+for group,r in result:
+    print(f"{group}:{len(r)}")
+    fuel_group[f"{group}"] = len(r)
+
+plt.bar(list(fuel_group.keys()),list(fuel_group.values()),color="m", width = 0.4)
+plt.show()
+
+
+# e)
+
+# grouped = data.groupby('Cylinders')
+# result_cylinders=grouped['CO2 Emissions (g/km)']
+total={}
+
+# for group,g in result_cylinders:
+#     print(group, g)
+#     total[f"{group}"]=g
+
+
+grouped = data.groupby('Cylinders')['CO2 Emissions (g/km)'].sum()
+total=grouped
+print(grouped)
+plt.bar(grouped.keys(),grouped,width=0.4)
+plt.show()

@@ -1,43 +1,80 @@
-# Zadatak 3.4.1 Skripta zadatak_1.py ucitava podatkovni skup iz data_C02_emission.csv.
-# Dodajte programski kod u skriptu pomocu kojeg možete odgovoriti na sljedeca pitanja:
-
-# a) Koliko mjerenja sadrži DataFrame? Kojeg je tipa svaka velicina? Postoje li izostale ili
-# duplicirane vrijednosti? Obrišite ih ako postoje. Kategoricke velicine konvertirajte u tip
-# category.
-
 import pandas as pd
 data = pd. read_csv ( 'data_C02_emission.csv')
+
+
+# A)
 data.info()
 print(f"There is:{data.duplicated().sum()} duplicated values")
 data.drop_duplicates()
 
-# print(f'Dataframe has: {len(data)} entries')
-# print(data.dtypes)
-# print(data.isna().sum())
-# print(data.duplicated().sum())
-# data.dropna()
-# data.drop_duplicates()
+for column in ['Make', 'Model', 'Vehicle Class', 'Transmission', 'Fuel Type']:
+    data[column] = data[column].astype('category')
+
+data.info()
 
 
+# B) 
+
+sorted_data = data.sort_values(by='Fuel Consumption City (L/100km)')
+sorted_data = sorted_data.reset_index(drop=True)
+print(sorted_data.head(3)[['Make', 'Model', 'Fuel Consumption City (L/100km)']])
+print(sorted_data.tail(3)[['Make', 'Model', 'Fuel Consumption City (L/100km)']]) 
 
 
-# b) Koja tri automobila ima najvecu odnosno najmanju gradsku potrošnju? Ispišite u terminal:
-# ime proizvodaca, model vozila i kolika je gradska potrošnja.
+# C) 
 
-# c) Koliko vozila ima velicinu motora izmedu 2.5 i 3.5 L? Kolika je prosjecna C02 emisija
-# plinova za ova vozila?
+engine_data=data[(data['Engine Size (L)']>= 2.5)& (data['Engine Size (L)']<=3.5)]
+print(len(engine_data))
 
-# d) Koliko mjerenja se odnosi na vozila proizvodaca Audi? Kolika je prosjecna emisija C02
-# plinova automobila proizvodaca Audi koji imaju 4 cilindara?
+print(engine_data['CO2 Emissions (g/km)'].mean())
 
-# e) Koliko je vozila s 4,6,8. . . cilindara? Kolika je prosjecna emisija C02 plinova s obzirom na
-# broj cilindara?
 
-# f) Kolika je prosjecna gradska potrošnja u slucaju vozila koja koriste dizel, a kolika za vozila
-# koja koriste regularni benzin? Koliko iznose medijalne vrijednosti?
+# D)
 
-# g) Koje vozilo s 4 cilindra koje koristi dizelski motor ima najvecu gradsku potrošnju goriva?
+audi = data[(data['Make'] == 'Audi')]
+print(f"{len(audi)} Audi cars")
 
-# h) Koliko ima vozila ima rucni tip mjenjaca (bez obzira na broj brzina)?
+four_cylinders_audi = audi[(audi['Cylinders']) == 4]
+print(four_cylinders_audi['CO2 Emissions (g/km)'].mean())
 
-# i) Izracunajte korelaciju izmedu numerickih velicina. Komentirajte dobiveni rezultat.
+
+# E) 
+
+grouped = data.groupby('Cylinders')
+
+for group,cylinder_group in grouped:
+    print(f"Number of vehicles with {group} cylinders: {len(cylinder_group)}")
+    print(f"Mean for {group} cylinders: {cylinder_group['CO2 Emissions (g/km)'].mean()}")
+
+
+# F)
+
+grouped_fuel_types = data.groupby('Fuel Type')
+for group,group_data in grouped_fuel_types:
+    print(group)
+
+diesel_vehicles_mean = data[data['Fuel Type'] == 'D']['Fuel Consumption City (L/100km)'].mean()
+print(diesel_vehicles_mean)
+diesel_consumption_median = (data[data['Fuel Type'] == 'D'])['Fuel Consumption City (L/100km)'].median()
+print(diesel_consumption_median)
+
+petrol_consumption_mean = (data[data['Fuel Type'] == 'X'])['Fuel Consumption City (L/100km)'].mean()
+petrol_consumption_median = (data[data['Fuel Type'] == 'X'])['Fuel Consumption City (L/100km)'].median()
+print(petrol_consumption_mean)
+print(petrol_consumption_median) 
+
+# G) 
+
+vehicles_wih_diesel_motor_4_cylinders = data[(data['Fuel Type'] == 'D')  &  (data['Cylinders'] == 4)]
+max_city_consumption_D4 = vehicles_wih_diesel_motor_4_cylinders['Fuel Consumption City (L/100km)'].max()
+result = vehicles_wih_diesel_motor_4_cylinders[vehicles_wih_diesel_motor_4_cylinders['Fuel Consumption City (L/100km)'] == max_city_consumption_D4]
+print(result)
+
+# H) 
+
+print(len(data[data['Transmission'].str.contains('M') & ~(data['Transmission'].str.contains('AM'))]))
+
+
+# I) 
+
+print(data.corr())
