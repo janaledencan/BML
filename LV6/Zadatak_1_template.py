@@ -15,9 +15,12 @@ from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import GridSearchCV
 
 
-from sklearn . neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 from sklearn.model_selection import cross_val_score
+
+from sklearn.svm import SVC
+
 
 
 def plot_decision_regions(X, y, classifier, resolution=0.02):
@@ -95,12 +98,12 @@ plt.show()
 
 
 # inicijalizacija i ucenje KNN modela
-KNN_model = KNeighborsClassifier( n_neighbors = 5)  
+KNN_model = KNeighborsClassifier( n_neighbors = 5)  #za mijenjanje K
 KNN_model.fit( X_train_n , y_train )
 
 # predikcija na skupu podataka za testiranje
-y_test_p_KNN = KNN_model.predict( X_test )
-y_train_p_KNN = KNN_model.predict( X_train)
+y_test_p_KNN = KNN_model.predict( X_test_n )
+y_train_p_KNN = KNN_model.predict( X_train_n)
 
 print("KNN: ")
 print("Tocnost train: " + "{:0.3f}".format((accuracy_score(y_train, y_train_p_KNN))))
@@ -115,6 +118,36 @@ plt.ylabel('x_2')
 plt.legend(loc='upper left')
 plt.title("Tocnost: " + "{:0.3f}".format((accuracy_score(y_train, y_train_p_KNN))))
 plt.tight_layout()
+
+#za neighbors=1
+KNN_model_1 = KNeighborsClassifier( n_neighbors = 1) 
+KNN_model_1.fit( X_train_n , y_train )
+
+# predikcija na skupu podataka za testiranje
+y_train_p_KNN_1 = KNN_model_1.predict( X_train_n)
+
+plot_decision_regions(X_train_n, y_train, classifier=KNN_model_1)
+plt.xlabel('x_1')
+plt.ylabel('x_2')
+plt.legend(loc='upper left')
+plt.title("Tocnost: " + "{:0.3f}".format((accuracy_score(y_train, y_train_p_KNN_1))))
+plt.tight_layout()
+
+
+#za neighbors=100
+KNN_model_100 = KNeighborsClassifier( n_neighbors = 100) 
+KNN_model_100.fit( X_train_n , y_train )
+
+# predikcija na skupu podataka za testiranje
+y_train_p_KNN_100 = KNN_model_100.predict( X_train_n)
+
+plot_decision_regions(X_train_n, y_train, classifier=KNN_model_100)
+plt.xlabel('x_1')
+plt.ylabel('x_2')
+plt.legend(loc='upper left')
+plt.title("Tocnost: " + "{:0.3f}".format((accuracy_score(y_train, y_train_p_KNN_100))))
+plt.tight_layout()
+
 plt.show()
 
 #Kada je K=1 dobijemo overfitting, a pri K=100 underfitting
@@ -126,6 +159,15 @@ plt.show()
 scores = cross_val_score(KNN_model , X_train , y_train , cv =5)
 print( scores )
 
+param_grid = {'n_neighbors': [10 , 100 , 100 ]}
+
+knn_gscv = GridSearchCV( KNN_model , param_grid , cv =5, scoring ='accuracy', n_jobs =-1)
+
+knn_gscv.fit( X_train_n , y_train )
+print( knn_gscv.best_params_ )
+print( knn_gscv.best_score_ )
+
+
 #Zadatak 6.5.3 Na podatke iz Zadatka 1 primijenite SVM model koji koristi RBF kernel funkciju
 #te prikažite dobivenu granicu odluke. Mijenjajte vrijednost hiperparametra C i γ. Kako promjena
 #ovih hiperparametara utjece na granicu odluke te pogrešku na skupu podataka za testiranje?
@@ -136,8 +178,8 @@ SVM_model = svm.SVC(kernel ='rbf', gamma = 1, C = 0.1)
 SVM_model.fit( X_train_n , y_train )
 
 # predikcija na skupu podataka za testiranje
-y_test_p_SVM = SVM_model . predict ( X_test )
-y_train_p_SVM = SVM_model.predict( X_train )
+y_test_p_SVM = SVM_model.predict ( X_test_n )
+y_train_p_SVM = SVM_model.predict( X_train_n )
 
 print("SVM: ")
 print("Tocnost train: " + "{:0.3f}".format((accuracy_score(y_train, y_train_p_SVM))))
@@ -151,8 +193,20 @@ plt.title("Tocnost: " + "{:0.3f}".format((accuracy_score(y_train, y_train_p_SVM)
 plt.tight_layout()
 plt.show()
 
+
+
 #Zadatak 6.5.4 Pomocu unakrsne validacije odredite optimalnu vrijednost hiperparametra C i γ
 #algoritma SVM za problem iz Zadatka 1.
 
 scores = cross_val_score(SVM_model , X_train , y_train , cv =5)
 print( scores )
+
+
+param_grid = {'C': [1, 10 , 100 , 100 ],
+    'gamma': [10 , 1, 0.1, 0.01 ]}
+
+svm_gscv = GridSearchCV ( SVM_model , param_grid , cv =5, scoring ='accuracy', n_jobs =-1)
+
+svm_gscv.fit ( X_train_n , y_train )
+print( svm_gscv.best_params_ )
+print( svm_gscv.best_score_ )
